@@ -773,7 +773,7 @@
                                 <workingDirectory>${project.basedir}/src/main/node</workingDirectory>
                                 <executable>npm</executable>
                                 <arguments>
-                                    <argument>ci</argument>
+                                    <argument>i</argument>
                                 </arguments>
                             </configuration>
                         </execution>
