@@ -898,6 +898,19 @@
     </repositories>
     <pluginRepositories>
         <pluginRepository>
+            <id>maven-plugin-central-releases</id>
+            <name>Maven Plugin Central Releases</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
             <id>cheeryworks-maven-plugin-releases</id>
             <name>CheeryWorks Maven Plugin Releases</name>
             <url>https://repository.cheeryworks.net/repository/maven-releases</url>
