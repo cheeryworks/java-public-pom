@@ -952,8 +952,8 @@
     </distributionManagement>
     <scm>
         <url>https://github.com/cheeryworks/java</url>
-        <connection>scm:git:https://github.com/cheeryworks/java</connection>
-        <developerConnection>scm:git:https://github.com/cheeryworks/java</developerConnection>
+        <connection>scm:git:git@github.com:cheeryworks/java.git</connection>
+        <developerConnection>scm:git:git@github.com:cheeryworks/java.git</developerConnection>
     </scm>
     <profiles>
         <profile>
