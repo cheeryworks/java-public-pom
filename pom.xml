@@ -14,8 +14,6 @@
 
         <java.version>11</java.version>
 
-        <spotbugs.skip>true</spotbugs.skip>
-
         <spring-boot.skip>false</spring-boot.skip>
         <exec.skip>false</exec.skip>
 
@@ -818,9 +816,9 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.4.2</version>
+                    <version>4.7.0.0</version>
                     <configuration>
-                        <skip>${spotbugs.skip}</skip>
+                        <threshold>High</threshold>
                     </configuration>
                     <executions>
                         <execution>
