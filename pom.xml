@@ -4,20 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.cheeryworks</groupId>
     <artifactId>java</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>2022.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>CheeryWorks Java</name>
-    <url>https://cheeryworks.org/java</url>
+    <url>https://github.com/cheeryworks/java</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <java.version>11</java.version>
-
-        <spring-boot.skip>false</spring-boot.skip>
-        <exec.skip>false</exec.skip>
-
-        <javadoc.skip>true</javadoc.skip>
 
         <spring.version>5.3.20</spring.version>
         <spring-security.version>5.6.3</spring-security.version>
@@ -613,21 +608,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>3.3.0</version>
-                    <executions>
-                        <execution>
-                            <id>copy-dependencies</id>
-                            <phase>pre-integration-test</phase>
-                            <goals>
-                                <goal>copy-dependencies</goal>
-                            </goals>
-                            <configuration>
-                                <includeScope>test</includeScope>
-                                <excludeTypes>pom</excludeTypes>
-                                <excludeArtifactIds>hibernate-jpamodelgen, jooq-meta-extensions</excludeArtifactIds>
-                                <outputDirectory>${project.build.directory}/test-libs</outputDirectory>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -686,6 +666,14 @@
                         <show>private</show>
                         <failOnError>false</failOnError>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -736,45 +724,6 @@
                 </plugin>
 
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <executions>
-                        <execution>
-                            <id>npm-install-pc</id>
-                            <goals>
-                                <goal>exec</goal>
-                            </goals>
-                            <phase>initialize</phase>
-                            <configuration>
-                                <skip>${exec.skip}</skip>
-                                <workingDirectory>${project.basedir}/src/main/node</workingDirectory>
-                                <executable>npm</executable>
-                                <arguments>
-                                    <argument>i</argument>
-                                </arguments>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>npm-build-pc</id>
-                            <goals>
-                                <goal>exec</goal>
-                            </goals>
-                            <phase>initialize</phase>
-                            <configuration>
-                                <skip>${exec.skip}</skip>
-                                <workingDirectory>${project.basedir}/src/main/node</workingDirectory>
-                                <executable>npm</executable>
-                                <arguments>
-                                    <argument>run</argument>
-                                    <argument>build</argument>
-                                </arguments>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>3.0.0-M2</version>
@@ -784,27 +733,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot.version}</version>
-                    <configuration>
-                        <fork>false</fork>
-                        <maxAttempts>48000</maxAttempts>
-                        <skip>${spring-boot.skip}</skip>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>pre-integration-test</id>
-                            <phase>pre-integration-test</phase>
-                            <goals>
-                                <goal>start</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>post-integration-test</id>
-                            <phase>post-integration-test</phase>
-                            <goals>
-                                <goal>stop</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
 
                 <plugin>
@@ -840,6 +768,33 @@
                     <artifactId>maven-archetype-plugin</artifactId>
                     <version>3.2.1</version>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.7</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.5</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -850,22 +805,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <failOnError>true</failOnError>
-                    <skip>${javadoc.skip}</skip>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -890,22 +829,9 @@
     </build>
     <repositories>
         <repository>
-            <id>cheeryworks-releases</id>
-            <name>CheeryWorks Releases Repository</name>
-            <url>https://repository.cheeryworks.net/repository/maven-releases</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>cheeryworks-snapshots</id>
-            <name>CheeryWorks Snapshots Repository</name>
-            <url>https://repository.cheeryworks.net/repository/maven-snapshots</url>
+            <id>cheeryworks-public-maven-snapshots</id>
+            <name>CheeryWorks Public Maven Snapshots Repository</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
             <releases>
                 <enabled>false</enabled>
                 <updatePolicy>never</updatePolicy>
@@ -918,22 +844,9 @@
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <id>cheeryworks-maven-plugin-releases</id>
-            <name>CheeryWorks Maven Plugin Releases</name>
-            <url>https://repository.cheeryworks.net/repository/maven-releases</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>cheeryworks-maven-plugin-snapshots</id>
-            <name>CheeryWorks Maven Plugin Snapshots</name>
-            <url>https://repository.cheeryworks.net/repository/maven-snapshots</url>
+            <id>cheeryworks-public-maven-plugin-snapshots</id>
+            <name>CheeryWorks Public Maven Plugin Snapshots</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
             <releases>
                 <enabled>false</enabled>
                 <updatePolicy>never</updatePolicy>
@@ -944,18 +857,6 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-    <distributionManagement>
-        <repository>
-            <id>cheeryworks-releases</id>
-            <name>CheeryWorks Releases Repository</name>
-            <url>https://repository.cheeryworks.net/repository/maven-releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>cheeryworks-snapshots</id>
-            <name>CheeryWorks Snapshots Repository</name>
-            <url>https://repository.cheeryworks.net/repository/maven-snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
     <scm>
         <url>https://github.com/cheeryworks/java</url>
         <connection>scm:git:git@github.com:cheeryworks/java.git</connection>
@@ -963,45 +864,34 @@
     </scm>
     <profiles>
         <profile>
-            <id>docker</id>
-            <properties>
-                <imageName>cheeryworks/${project.artifactId}</imageName>
-            </properties>
+            <id>oss-release</id>
+            <distributionManagement>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>repackage</goal>
-                                </goals>
-                            </execution>
-                        </executions>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
                     </plugin>
                     <plugin>
-                        <groupId>com.spotify</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <imageName>${imageName}</imageName>
-                            <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                            <resources>
-                                <resource>
-                                    <targetPath>/</targetPath>
-                                    <directory>${project.build.directory}</directory>
-                                    <include>${project.artifactId}-${project.version}.jar</include>
-                                </resource>
-                            </resources>
-                        </configuration>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>
