@@ -22,10 +22,10 @@ jobs:
         distribution: 'temurin'
         cache: 'maven'
         server-id: ossrh
-        server-username: ${{ OSSRH_USERNAME }}
-        server-password: ${{ OSSRH_PASSWORD }}
+        server-username: OSSRH_USERNAME
+        server-password: OSSRH_PASSWORD
         gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-        gpg-passphrase: ${{ GPG_PASSPHRASE }}
+        gpg-passphrase: GPG_PASSPHRASE
 
     - name: Publish to OSSRH
       run: mvn clean deploy -P oss-release
