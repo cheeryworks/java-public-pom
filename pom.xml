@@ -523,6 +523,37 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>1.3.0</version>
+                    <configuration>
+                        <flattenMode>oss</flattenMode>
+                        <updatePomFile>true</updatePomFile>
+                        <pomElements>
+                            <dependencyManagement>keep</dependencyManagement>
+                            <repositories>flatten</repositories>
+                            <scm>flatten</scm>
+                            <url>flatten</url>
+                        </pomElements>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>flatten</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>flatten</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>flatten.clean</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -586,4 +617,10 @@
         <connection>scm:git:git@github.com:cheeryworks/java-public-pom.git</connection>
         <developerConnection>scm:git:git@github.com:cheeryworks/java-public-pom.git</developerConnection>
     </scm>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url></url>
+        </license>
+    </licenses>
 </project>
