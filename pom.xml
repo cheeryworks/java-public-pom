@@ -18,7 +18,7 @@
         <spring-security.version>5.7.2</spring-security.version>
         <spring-boot.version>2.7.1</spring-boot.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
-        <jackson.version>2.13.3</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
         <hibernate.version>5.6.9.Final</hibernate.version>
     </properties>
     <dependencyManagement>
