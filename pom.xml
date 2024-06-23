@@ -314,21 +314,21 @@
                 <version>22.0</version>
             </dependency>
 
-<!--            <dependency>-->
-<!--                <groupId>org.springframework</groupId>-->
-<!--                <artifactId>spring-framework-bom</artifactId>-->
-<!--                <version>${spring.version}</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.security</groupId>-->
-<!--                <artifactId>spring-security-bom</artifactId>-->
-<!--                <version>${spring-security.version}</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-bom</artifactId>
+                <version>${spring-security.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.data</groupId>
@@ -454,13 +454,13 @@
                 <version>6.2.5.Final</version>
             </dependency>
 
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-dependencies</artifactId>-->
-<!--                <version>${spring-boot.version}</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.vault</groupId>
@@ -468,13 +468,13 @@
                 <version>2.3.4</version>
             </dependency>
 
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.cloud</groupId>-->
-<!--                <artifactId>spring-cloud-dependencies</artifactId>-->
-<!--                <version>${spring-cloud.version}</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
@@ -612,11 +612,11 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-    <scm>
-        <url>https://github.com/cheeryworks/java-public-pom</url>
-        <connection>scm:git:git@github.com:cheeryworks/java-public-pom.git</connection>
-        <developerConnection>scm:git:git@github.com:cheeryworks/java-public-pom.git</developerConnection>
-    </scm>
+<!--    <scm>-->
+<!--        <url>https://github.com/cheeryworks/java-public-pom</url>-->
+<!--        <connection>scm:git:git@github.com:cheeryworks/java-public-pom.git</connection>-->
+<!--        <developerConnection>scm:git:git@github.com:cheeryworks/java-public-pom.git</developerConnection>-->
+<!--    </scm>-->
     <licenses>
         <license>
             <name>MIT License</name>
